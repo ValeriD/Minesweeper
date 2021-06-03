@@ -4,7 +4,7 @@
 
 
 class Game{
-    bool isRunning;
+    bool isGameRunning;
     SDL_Window* window;
     SDL_Renderer* renderer;
 

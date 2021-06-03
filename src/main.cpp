@@ -10,16 +10,16 @@ int main(){
     }
     Game* game = new Game();
 
-    if(!game.init(Minesweeper, 100,100, 640,480,0)){
+    if(!game->init("Minesweeper", 100,100, 640,480,0)){
         return -1;
     }
 
-    while(game.isRunning()) {
-        game.handleEvents();
-        game.update();
-        game.render();
+    while(game->isRunning()) {
+        game->handleEvents();
+        game->update();
+        game->render();
     }
 
-    game.clean();
+    game->clean();
     return 0;
 }

@@ -5,7 +5,8 @@
 # Compiler settings - Can be customized.
 CC = g++
 CXXFLAGS = -std=c++11 -Wall
-LDFLAGS =  -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+LDFLAGS =  `sdl2-config --cflags --libs` -lSDL2 -lSDL2_mixer -lSDL2_image -lSDL2_ttf
+
 
 # Makefile settings - Can be customized.
 APPNAME = minesweeper.exe

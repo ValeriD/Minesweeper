@@ -1,1 +1,4 @@
 minesweeper_workspace.code-workspace
+/obj/**
+*.d
+*.exe
