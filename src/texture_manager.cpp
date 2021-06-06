@@ -57,8 +57,8 @@ void TextureManager::draw(const std::string& id, int row, int col ,int dstx, int
     src.w = dst.w = width;
     src.h = dst.h = height;
 
-    src.x = row * width;
-    src.y = col* height;
+    src.x = col * width;
+    src.y = row* height;
 
     dst.x = dstx;
     dst.y = dsty;
