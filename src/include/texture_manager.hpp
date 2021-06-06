@@ -44,7 +44,7 @@ public:
      * @throw invalid_argument if the id already exists or invalid path provided
      * @throw runtime_error if the texture creation failed
      */
-    bool load(const std::string path, std::string id, SDL_Renderer* renderer);
+    bool load(const std::string& path,const std::string& id, SDL_Renderer* renderer);
 
 
     /** 
@@ -59,7 +59,7 @@ public:
      * @throw invalid argument when invalid id passed
      * @throw runtime_error when rendering fails
      */
-    void draw(std::string& id, int row, int col ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer);
+    void draw(const std::string& id, int row, int col ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer);
 
 
 };

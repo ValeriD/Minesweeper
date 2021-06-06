@@ -16,7 +16,7 @@ TextureManager* TextureManager::getInstance(){
     return &textureManager;
 }
 
-bool TextureManager::load(const std::string path, std::string id, SDL_Renderer* renderer){
+bool TextureManager::load(const std::string& path,const std::string& id, SDL_Renderer* renderer){
     
     if(this->textures.count(id)!=0){
         throw std::invalid_argument("Texture with the given ID already exists!");
@@ -47,7 +47,7 @@ bool TextureManager::load(const std::string path, std::string id, SDL_Renderer* 
 
 }
 
-void TextureManager::draw(std::string& id, int row, int col ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer){
+void TextureManager::draw(const std::string& id, int row, int col ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer){
     if(this->textures.count(id) == 0){
         throw std::invalid_argument("The given ID does not exist");
     }
