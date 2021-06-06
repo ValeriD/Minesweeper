@@ -50,8 +50,8 @@ public:
     /** 
      * Method that draws the texture with the given id to the given position on the screen
      * @param id - the ID of the texture
-     * @param srcx - the x position on which the coping should start
-     * @param srcy - the y position on which the coping should start
+     * @param row - the from row where the copy of the image should be taken
+     * @param col - the from col where the copy of the image should be taken
      * @param destx - the x position on the screen
      * @param desty - the y position on the screen
      * @param renderer - the renderer
@@ -59,7 +59,7 @@ public:
      * @throw invalid argument when invalid id passed
      * @throw runtime_error when rendering fails
      */
-    void draw(std::string& id, int srcx, int srcy ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer);
+    void draw(std::string& id, int row, int col ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer);
 
 
 };
