@@ -75,3 +75,10 @@ void Game::clean(){
 bool Game::isRunning() const{
     return this->isGameRunning;
 }
+
+const SDL_Renderer* Game::getRenderer() const{
+    return this->renderer;
+}
+SDL_Renderer* Game::getRenderer(){
+    return this->renderer;
+}

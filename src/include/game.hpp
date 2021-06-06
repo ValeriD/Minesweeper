@@ -55,4 +55,8 @@ public:
     void clean();
 
     bool isRunning() const;
+
+    const SDL_Renderer* getRenderer() const;
+
+    SDL_Renderer* getRenderer();
 };
