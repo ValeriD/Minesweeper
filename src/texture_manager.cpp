@@ -27,7 +27,7 @@ bool TextureManager::load(const std::string& path,const std::string& id, SDL_Ren
 
     //Checks if the surface is created
     if(!surface){
-        throw std::invalid_argument("Invalid path provided!");
+        throw std::invalid_argument(SDL_GetError());
     }
 
     //Creates the texture from the surface
@@ -37,7 +37,7 @@ bool TextureManager::load(const std::string& path,const std::string& id, SDL_Ren
 
     //Checks if the texture is successcfully created
     if(!texture){
-        throw std::runtime_error("Error during texture creation!");
+        throw std::runtime_error(SDL_GetError());
     }
 
     //Adds the created texture in the map
