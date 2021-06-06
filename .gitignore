@@ -2,3 +2,4 @@ minesweeper_workspace.code-workspace
 /obj/**
 *.d
 *.exe
+workspace.code-workspace

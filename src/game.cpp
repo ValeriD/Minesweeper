@@ -5,14 +5,20 @@ Game::Game(){
 
 }
 Game::~Game(){
-
+    this->clean();
 }
 
-bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags){
+Game* Game::getInstance(){
+    static Game instance;
+    return &instance;
+}
+
+void Game::init(const char* title, int xpos, int ypos, int width, int height){
+
     //Initialization of all SDL components - Video, Audio ...
     if(SDL_Init(SDL_INIT_EVERYTHING) ==0){
         std::cout<< "SDL initialized successfully"<< std::endl;
-        this->window = SDL_CreateWindow(title, xpos, ypos, width, height,flags);
+        this->window = SDL_CreateWindow(title, xpos, ypos, width, height, 0);
 
         //Check if the window is successfully created
         if(this->window!=0){
@@ -24,26 +30,23 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
                 std::cout<< "Renderer created successfully!"<< std::endl;
                 SDL_SetRenderDrawColor(this->renderer, 255,255,255,255); //Set the renderer color to be white
             }else{ //On renderer creation failure
-                std::cout<< "Renderer creation failed!"<< std::endl;
-                return false;
+                throw std::runtime_error(SDL_GetError());
             }
         }else{ //On window creation failure
-            std::cout<< "Window creation failed!"<< std::endl;
-            return false;
+            throw std::runtime_error(SDL_GetError());
         }
     }else{ // On initialization failure
-        std::cout<< "SDL initialization failed"<< std::endl;
-        return false;
+        throw std::runtime_error(SDL_GetError());
     }
 
     std::cout<<"Initialization finished successfully!"<< std::endl;
     this->isGameRunning = true;
-    return true;
+
+    TextureManager::getInstance()->load("./assets/cell.png","cellImage",this->renderer);
 
 }
 void Game::render(){
     SDL_RenderClear(renderer);
-
     SDL_RenderPresent(renderer);
 }
 void Game::update(){

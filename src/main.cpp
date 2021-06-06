@@ -4,13 +4,12 @@
 
 int main(){
 
+    Game* game = Game::getInstance();
 
-    if(SDL_Init(SDL_INIT_EVERYTHING)==0){
-        std::cout<<"Success"<<std::endl;
-    }
-    Game* game = new Game();
-
-    if(!game->init("Minesweeper", 100,100, 640,480,0)){
+    try{
+        game->init("Minesweeper", 100,100, 640,480);
+    }catch(std::exception& e){
+        std::cout<<e.what()<<std::endl;
         return -1;
     }
 
@@ -20,6 +19,5 @@ int main(){
         game->render();
     }
 
-    game->clean();
     return 0;
 }

@@ -2,6 +2,7 @@
 #include<iostream>
 #include "SDL2/SDL.h"
 #include "texture_manager.hpp"
+#include "drawer.hpp"
 
 /**
  * Singleton class that represents the game
