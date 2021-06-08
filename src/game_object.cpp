@@ -5,6 +5,8 @@ GameObject::GameObject(int x, int y, int width, int height,const std::string id)
 {
 }
 
+GameObject::~GameObject(){}
+
 GameObject::GameObject(const GameObject& other)
 :  GameObject(other.x, other.y, other.width, other.height, other.textureId)
 {

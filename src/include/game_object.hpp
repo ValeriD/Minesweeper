@@ -16,7 +16,7 @@ public:
     GameObject(const GameObject& other);
     GameObject& operator=(const GameObject& other);
 
-    //TODO create cell and board
+    virtual ~GameObject();
 
     /**
      * Getters
