@@ -5,7 +5,7 @@
 #include "cell.hpp"
 
 
-
+//TODO javadoc
 class Board: public GameObject{
 
     size_t rows;
@@ -74,6 +74,4 @@ public:
      */
     void draw();
     void update();
-    void clean();
-
 };

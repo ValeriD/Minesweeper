@@ -1,6 +1,6 @@
 #pragma once
 #include "game_object.hpp"
-
+#include "drawer.hpp"
 
 class Board;
 
@@ -64,5 +64,4 @@ public:
      */
     void draw();
     void update();
-    void clean();
 };

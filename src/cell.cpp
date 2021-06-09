@@ -6,7 +6,7 @@ Cell::Cell(int x, int y, int width, int height, std::string id, Board* board)
     : GameObject(x, y, width, height, id),
       bomb(false),
       state(CLOSED),
-      numSurroundingBombs(0),
+      numSurroundingBombs(-1),
       board(board)
 {}
 
@@ -74,11 +74,16 @@ void Cell::calculateNumSurroundingBombs(size_t row, size_t col){
     }
 }
 void Cell::draw(){
-
+    // switch(this->state){
+    //     case FLAGGED: Drawer::drawFlagged(this->getX(), this->getY());break;
+    //     case CLOSED: Drawer::drawClosed(this->getX(), this->getY());break;
+    //     case OPENED: {
+    //         if(this->isBomb()){
+    //             //Drawer::draw
+    //         }
+    //     }
+    // }
 }
 void Cell::update(){
-
-}
-void Cell::clean(){
 
 }

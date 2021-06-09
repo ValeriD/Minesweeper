@@ -78,14 +78,13 @@ Cell* Board::at(size_t row, size_t col){
 void Board::openCell(size_t row, size_t col){
 }
 void Board::draw(){
-    //Draw every cell
+    for(auto cell: this->cells){
+        cell->draw();
+    }
 }
 void Board::update(){
     //Checks for input /Input handler
     //If found does the flag, or opens the cell
-}
-void Board::clean(){
-
 }
 
 void Board::genereateBombs(){
