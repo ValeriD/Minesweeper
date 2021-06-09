@@ -1,9 +1,9 @@
 #pragma once
 #include<string>
+#include"position2d.hpp"
 
 class GameObject{
-    int x;
-    int y;
+    Position2D position;
 
     int width;
     int height;

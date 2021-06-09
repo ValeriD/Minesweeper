@@ -1,14 +1,14 @@
 #include "./include/game_object.hpp"
 
 GameObject::GameObject(int x, int y, int width, int height,const std::string id)
-: x(x), y(y), width(width), height(height), textureId(id)
+: position(Position2D(x,y)), width(width), height(height), textureId(id)
 {
 }
 
 GameObject::~GameObject(){}
 
 GameObject::GameObject(const GameObject& other)
-:  GameObject(other.x, other.y, other.width, other.height, other.textureId)
+:  GameObject(other.getX(), other.getY(), other.width, other.height, other.textureId)
 {
 }
 
@@ -16,8 +16,7 @@ GameObject& GameObject::operator=(const GameObject& other){
     if(this == &other){
         return *this;
     }
-    this->x = other.x;
-    this->y = other.y;
+    this->position = other.position;
     this->width = other.width;
     this->height = other.height;
     this->textureId = other.textureId;
@@ -26,10 +25,10 @@ GameObject& GameObject::operator=(const GameObject& other){
 }
 
 int GameObject::getX() const{
-    return this->x;
+    return this->position.getX();
 }
 int GameObject::getY() const{
-    return this->y;
+    return this->position.getY();
 }
 int GameObject::getWidth() const{
     return this->width;
