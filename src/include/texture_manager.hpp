@@ -3,6 +3,8 @@
 #include<map>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include"config_reader.hpp"
+#include "position2d.hpp"
 
 
 /**
@@ -10,12 +12,15 @@
  * @param textures - map of textures with ids
  */
 class TextureManager{
+
+
     std::map<std::string, SDL_Texture*> textures;
 
     /** 
      * Private default constructor
      */
     TextureManager();
+
 public:
     /**
      * Destructor
@@ -52,14 +57,13 @@ public:
      * @param id - the ID of the texture
      * @param row - the from row where the copy of the image should be taken
      * @param col - the from col where the copy of the image should be taken
-     * @param destx - the x position on the screen
-     * @param desty - the y position on the screen
+     * @param dstPos - the postion on the screen
+     * @param dstWidth - the width of the destination rectangle
+     * @param dstHeight - the height of the destination rectangle
      * @param renderer - the renderer
      * 
      * @throw invalid argument when invalid id passed
      * @throw runtime_error when rendering fails
      */
-    void draw(const std::string& id, int row, int col ,int dstx, int dsty, int width, int height,SDL_Renderer* renderer);
-
-
+    void draw(const std::string& id, int row, int col ,const Position2D& dstPos, int dstWidth, int dstHeight,SDL_Renderer* renderer);
 };
