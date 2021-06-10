@@ -41,10 +41,16 @@ bool InputHandler::getState(unsigned button){
 }
 
 const Position2D InputHandler::getMousePosition()const{
-    Position2D pos;
+    
     int x, y;
     SDL_GetGlobalMouseState(&x, &y);
-    pos.setX(x);
-    pos.setY(y);
+    
+    int windowX, windowY;
+    SDL_GetWindowPosition(Game::getInstance()->getWindow(),&windowX, &windowY);
+    
+    Position2D pos;
+    pos.setX(x - windowX);
+    pos.setY(y - windowY);
+
     return pos;
 }

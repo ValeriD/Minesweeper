@@ -1,9 +1,11 @@
 #pragma once
 #include<vector>
 #include<iostream>
+#include<time.h>
 #include "game_object.hpp"
 #include "cell.hpp"
 
+class Cell;
 
 //TODO javadoc
 class Board: public GameObject{
@@ -69,9 +71,14 @@ public:
     //TODO
     void openCell(size_t row, size_t col);
 
+    int calculateRow(int cursorY)const;
+    int calculateCol(int cursorX)const;
+
     /**
      * Implementation of the GameObject virtual methods
      */
     void draw();
     void update();
+
+    Cell* getCellByCursorPos(const Position2D& pos);
 };

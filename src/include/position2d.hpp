@@ -1,4 +1,5 @@
 #pragma once
+#include<iostream>
 
 class Position2D{
     int x;
@@ -13,4 +14,6 @@ public:
 
     void setX(int x);
     void setY(int y);
+
+    friend std::ostream& operator<<(std::ostream& os, const Position2D& pos);
 };

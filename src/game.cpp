@@ -46,7 +46,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height){
 
 
     
-    this->board = new Board(0,0,640,320, "cellImage", 10,20,50);
+    this->board = new Board(0,0,640,320, "cellImage", 10,20,10);
 }
 void Game::render(){
     SDL_RenderClear(renderer);
@@ -78,6 +78,9 @@ const SDL_Renderer* Game::getRenderer() const{
 }
 SDL_Renderer* Game::getRenderer(){
     return this->renderer;
+}
+SDL_Window* Game::getWindow(){
+    return this->window;
 }
 void Game::quit(){
     this->isGameRunning=false;

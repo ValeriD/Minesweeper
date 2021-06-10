@@ -76,6 +76,32 @@ Cell* Board::at(size_t row, size_t col){
 }
 
 void Board::openCell(size_t row, size_t col){
+    if(!(this->at(row, col)->isFlaged() || this->at(row, col)->isOpened())){
+        this->at(row, col)->setState(3);
+        if(this->at(row, col)->isBomb()){
+        //End the game and open all bombs
+        }else if(this->at(row, col)->getNumberOfSurroundingBombs() == 0){
+            if(row > 0) openCell(row-1, col);
+            if(row < rows -1) openCell(row+1, col);
+            if(col > 0) openCell(row, col-1);
+            if(col < cols-1) openCell(row, col+1);
+        } 
+    }
+
+}
+
+
+int Board::calculateRow(int cursorY)const{
+    if(cursorY > this->getY()+this->getHeight() || cursorY < this->getY()){
+        return -1;
+    }
+    return (cursorY - this->getY())/(this->getHeight()/rows);
+}
+int Board::calculateCol(int cursorX)const{
+    if(cursorX > this->getX()+this->getWidth() || cursorX < this->getX()){
+        return -1;
+    }
+    return (cursorX - this->getX())/(this->getWidth()/cols);
 }
 void Board::draw(){
     for(auto cell: this->cells){
@@ -83,8 +109,26 @@ void Board::draw(){
     }
 }
 void Board::update(){
-    //Checks for input /Input handler
-    //If found does the flag, or opens the cell
+    //Check for win condition
+    if(InputHandler::getInstance()->getState(0)){
+        Position2D p = InputHandler::getInstance()->getMousePosition();
+        int row = this->calculateRow(p.getY());
+        int col = this->calculateCol(p.getX());
+
+        if(row>=0 && col>=0){
+            //check if is a bomb end the game
+            openCell(row,col);
+        }
+    }
+    if(InputHandler::getInstance()->getState(1)){
+        Position2D p = InputHandler::getInstance()->getMousePosition();
+        int row = this->calculateRow(p.getY());
+        int col = this->calculateCol(p.getX());
+        if(row>=0 && col>=0){
+            if(this->at(row, col)->isFlaged()) this->at(row, col)->setState(2);
+            else this->at(row,col)->setState(1);
+        }
+    }
 }
 
 void Board::genereateBombs(){
@@ -98,4 +142,16 @@ void Board::genereateBombs(){
 
         this->at(row, col)->setToBomb();
     }
+}
+
+Cell* Board::getCellByCursorPos(const Position2D& pos){
+    if(pos.getX()> this->getX()+this->getWidth() || pos.getX() < this->getX() 
+    || pos.getY() > this->getY()+this->getHeight() || pos.getY() < this->getY()){
+        return nullptr;
+    }
+
+    int col = (pos.getX() - this->getX())/(this->getWidth()/cols);
+    int row = (pos.getY() - this->getY())/(this->getHeight()/rows);
+
+    return at(row, col);
 }

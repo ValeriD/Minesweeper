@@ -47,6 +47,7 @@ public:
     bool isClosed() const;
     bool isOpened() const;
     bool isBomb() const;
+    int getNumberOfSurroundingBombs() const;
 
     /**
      * Setters
@@ -64,4 +65,6 @@ public:
      */
     void draw();
     void update();
+
+    void update(bool state);
 };

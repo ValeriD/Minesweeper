@@ -22,4 +22,8 @@ void Position2D::setX(int x){
 void Position2D::setY(int y){
     this->y = y;
 }
+std::ostream& operator<<(std::ostream& os, const Position2D& pos){
+    os<<"{"<<pos.getX()<<", "<<pos.getY()<<"}";
+    return os;
+}
 

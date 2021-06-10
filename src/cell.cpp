@@ -5,7 +5,7 @@
 Cell::Cell(int x, int y, int width, int height, std::string id, Board* board)
     : GameObject(x, y, width, height, id),
       bomb(false),
-      state(OPENED),
+      state(CLOSED),
       numSurroundingBombs(0),
       board(board)
 {}
@@ -45,6 +45,10 @@ bool Cell::isOpened() const{
 bool Cell::isBomb() const{
     return this->bomb;
 }
+int Cell::getNumberOfSurroundingBombs()const{
+    return this->numSurroundingBombs;
+}
+
 void Cell::setState(size_t flag){
     switch(flag){
         case 1: this->state = FLAGGED; break;
@@ -98,6 +102,13 @@ void Cell::draw(){
         }
     }
 }
+void Cell::update(bool opened){
+    if(opened){
+        this->setState(3);
+    }else{
+        this->setState(1);
+    }
+}
 void Cell::update(){
-
+    
 }

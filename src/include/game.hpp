@@ -65,4 +65,6 @@ public:
     const SDL_Renderer* getRenderer() const;
 
     SDL_Renderer* getRenderer();
+
+    SDL_Window* getWindow();
 };
