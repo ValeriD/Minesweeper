@@ -50,6 +50,7 @@ public:
      */
     int getX() const;
     int getY() const;
+    const Position2D& getPosition() const;
     int getWidth() const;
     int getHeight() const;
     std::string getTextureId() const;

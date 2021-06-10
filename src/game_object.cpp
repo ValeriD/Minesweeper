@@ -30,6 +30,9 @@ int GameObject::getX() const{
 int GameObject::getY() const{
     return this->position.getY();
 }
+const Position2D& GameObject::getPosition() const{
+    return this->position;
+}
 int GameObject::getWidth() const{
     return this->width;
 }
