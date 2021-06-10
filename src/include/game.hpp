@@ -2,8 +2,12 @@
 #include<iostream>
 #include "SDL2/SDL.h"
 #include "texture_manager.hpp"
+#include "input_handler.hpp"
 #include "drawer.hpp"
+#include "board.hpp"
 
+class Board;
+class InputHandler;
 /**
  * Singleton class that represents the game
  * @param isGameRunning - variable that indicates if the game is still running
@@ -15,6 +19,7 @@ class Game{
     SDL_Window* window;
     SDL_Renderer* renderer;
 
+    Board* board;
     /**
      * Private default constructor
      */
@@ -53,6 +58,7 @@ public:
     void update();
     void handleEvents();
     void clean();
+    void quit();
 
     bool isRunning() const;
 

@@ -44,25 +44,22 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height){
 
     TextureManager::getInstance()->load("./assets/cell.png","cellImage",this->renderer);
 
+
+    
+    this->board = new Board(0,0,640,320, "cellImage", 10,20,50);
 }
 void Game::render(){
     SDL_RenderClear(renderer);
+    this->board->draw();
+    // Cell cell(0,0, 32,32,"cellImage",nullptr);
+    // cell.draw();
     SDL_RenderPresent(renderer);
 }
 void Game::update(){
-
-
+    board->update();
 }
 void Game::handleEvents(){
-
-    SDL_Event event;
-    while(SDL_PollEvent(&event)){
-        switch(event.type){
-            case SDL_QUIT: this->isGameRunning=false; break;
-
-            default: break;
-        }
-    }
+    InputHandler::getInstance()->update();
 }
 void Game::clean(){
     std::cout<<"Cleaning the game"<< std::endl;
@@ -81,4 +78,7 @@ const SDL_Renderer* Game::getRenderer() const{
 }
 SDL_Renderer* Game::getRenderer(){
     return this->renderer;
+}
+void Game::quit(){
+    this->isGameRunning=false;
 }
