@@ -5,8 +5,8 @@
 Cell::Cell(int x, int y, int width, int height, std::string id, Board* board)
     : GameObject(x, y, width, height, id),
       bomb(false),
-      state(CLOSED),
-      numSurroundingBombs(-1),
+      state(OPENED),
+      numSurroundingBombs(0),
       board(board)
 {}
 
@@ -60,7 +60,7 @@ void Cell::setToBomb(){
 
 void Cell::calculateNumSurroundingBombs(size_t row, size_t col){
     if(row > 0  && this->board->at(row-1, col)->isBomb())numSurroundingBombs++;
-    if(row < this->board->getRowsCount() && this->board->at(row+1, col)->isBomb())numSurroundingBombs++;
+    if(row < this->board->getRowsCount()-1 && this->board->at(row+1, col)->isBomb())numSurroundingBombs++;
 
     if(col > 0 && this->board->at(row, col-1)->isBomb()) numSurroundingBombs++;
     if(col < this->board->getColsCount()-1 && this->board->at(row, col+1)->isBomb()) numSurroundingBombs++;
@@ -68,21 +68,35 @@ void Cell::calculateNumSurroundingBombs(size_t row, size_t col){
     if(row > 0){
         if(col > 0 && this->board->at(row-1,col-1)->isBomb()) numSurroundingBombs++;
         if(col < this->board->getColsCount()-1 && this->board->at(row-1, col+1)->isBomb()) numSurroundingBombs++;
-    }else if(row < this->board->getRowsCount()-1){
+    }
+    if(row < this->board->getRowsCount()-1){
         if(col > 0 && this->board->at(row+1,col-1)->isBomb()) numSurroundingBombs++;
         if(col < this->board->getColsCount()-1 && this->board->at(row+1, col+1)->isBomb()) numSurroundingBombs++;
     }
 }
 void Cell::draw(){
-    // switch(this->state){
-    //     case FLAGGED: Drawer::drawFlagged(this->getX(), this->getY());break;
-    //     case CLOSED: Drawer::drawClosed(this->getX(), this->getY());break;
-    //     case OPENED: {
-    //         if(this->isBomb()){
-    //             //Drawer::draw
-    //         }
-    //     }
-    // }
+    switch(this->state){
+        case FLAGGED: Drawer::drawFlagged(this->getPosition(), this->getWidth(), this->getHeight()); break;
+        case CLOSED: Drawer::drawClosed(this->getPosition(), this->getWidth(), this->getHeight()); break;
+        case OPENED: {
+            if(this->isBomb()){
+                Drawer::drawClickedBomb(this->getPosition(), this->getWidth(), this->getHeight());
+            }else{
+                switch(this->numSurroundingBombs){
+                    case 0: Drawer::drawZero(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 1: Drawer::drawOne(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 2: Drawer::drawTwo(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 3: Drawer::drawThree(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 4: Drawer::drawFour(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 5: Drawer::drawFive(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 6: Drawer::drawSix(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 7: Drawer::drawSeven(this->getPosition(), this->getWidth(), this->getHeight());break;
+                    case 8: Drawer::drawEight(this->getPosition(), this->getWidth(), this->getHeight());break;
+                }
+            }
+            break;
+        }
+    }
 }
 void Cell::update(){
 

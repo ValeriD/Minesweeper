@@ -72,7 +72,7 @@ const Cell* Board::at(size_t row, size_t col) const{
     return this->cells[row*col];
 }
 Cell* Board::at(size_t row, size_t col){
-    return this->cells[row*col];
+    return this->cells[row*cols + col];
 }
 
 void Board::openCell(size_t row, size_t col){
@@ -89,6 +89,7 @@ void Board::update(){
 
 void Board::genereateBombs(){
     size_t row, col;
+    srand(time(NULL));
     for(size_t i = 0; i < this->numBombs; i++){
         do{
             row = rand() % this->rows;
