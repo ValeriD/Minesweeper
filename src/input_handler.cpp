@@ -32,6 +32,13 @@ void InputHandler::update(){
                 this->states[RIGHT] = false;
             }
         }
+
+        if(event.type == SDL_KEYDOWN){
+            if(event.key.keysym.sym == SDLK_r){
+                Game::getInstance()->restart();
+            }
+        }
+        
     }
     
 }

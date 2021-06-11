@@ -17,6 +17,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height){
 
     //Initialization of all SDL components - Video, Audio ...
     if(SDL_Init(SDL_INIT_EVERYTHING) ==0){
+        if(TTF_Init()!=0){
+            throw std::runtime_error("TTF not initialized");
+        }
         std::cout<< "SDL initialized successfully"<< std::endl;
         this->window = SDL_CreateWindow(title, xpos, ypos, width, height, 0);
 
@@ -28,7 +31,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height){
             //Check if the renderer is successfully created
             if(this->renderer!=0){
                 std::cout<< "Renderer created successfully!"<< std::endl;
-                SDL_SetRenderDrawColor(this->renderer, 255,255,255,255); //Set the renderer color to be white
+                SDL_SetRenderDrawColor(this->renderer, 0,0,0,0); //Set the renderer color to be white
             }else{ //On renderer creation failure
                 throw std::runtime_error(SDL_GetError());
             }
@@ -44,15 +47,21 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height){
 
     TextureManager::getInstance()->load("./assets/cell.png","cellImage",this->renderer);
 
+    restart();
 
     
-    this->board = new Board(0,0,640,320, "cellImage", 10,20,10);
 }
 void Game::render(){
     SDL_RenderClear(renderer);
+
     this->board->draw();
-    // Cell cell(0,0, 32,32,"cellImage",nullptr);
-    // cell.draw();
+    
+    TextRenderer::renderText("Press R to restart the game", {255,255,255}, 0,330,320,50);
+    switch(this->currentGameState){
+        case WIN: TextRenderer::renderText("YOU WON", {255,255,255}, 0,390,320,50);break;
+        case LOSE: TextRenderer::renderText("YOU LOST", {255,255,255}, 0,390,320,50);break; 
+    }
+
     SDL_RenderPresent(renderer);
 }
 void Game::update(){
@@ -66,11 +75,30 @@ void Game::clean(){
     
     SDL_DestroyWindow(this->window);
     SDL_DestroyRenderer(this->renderer);
+    TTF_Quit();
     SDL_Quit();
+}
+
+void Game::restart(){
+    if(this->board){
+        delete this->board;
+    }
+    
+    this->board = new Board(0,0,640,320, "cellImage", 10,20,10);
+    this->currentGameState = RUNNING;
+
 }
 
 bool Game::isRunning() const{
     return this->isGameRunning;
+}
+
+int Game::getCurrentGameState()const{
+    return this->currentGameState;
+}
+
+void Game::setCurrentGameState(int flag){
+    this->currentGameState = flag;
 }
 
 const SDL_Renderer* Game::getRenderer() const{

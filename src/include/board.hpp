@@ -7,7 +7,6 @@
 
 class Cell;
 
-//TODO javadoc
 class Board: public GameObject{
 
     size_t rows;
@@ -68,7 +67,6 @@ public:
     const Cell* at(size_t row, size_t col) const;
     Cell* at(size_t row, size_t col);
 
-    //TODO
     void openCell(size_t row, size_t col);
 
     int calculateRow(int cursorY)const;
@@ -80,5 +78,6 @@ public:
     void draw();
     void update();
 
+    void openAllBombs();
     Cell* getCellByCursorPos(const Position2D& pos);
 };

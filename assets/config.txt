@@ -1,0 +1,2 @@
+cellWidth=32
+cellHeight=32

@@ -78,9 +78,8 @@ Cell* Board::at(size_t row, size_t col){
 void Board::openCell(size_t row, size_t col){
     if(!(this->at(row, col)->isFlaged() || this->at(row, col)->isOpened())){
         this->at(row, col)->setState(3);
-        if(this->at(row, col)->isBomb()){
-        //End the game and open all bombs
-        }else if(this->at(row, col)->getNumberOfSurroundingBombs() == 0){
+        this->openedCells++;
+        if(this->at(row, col)->getNumberOfSurroundingBombs() == 0){
             if(row > 0) openCell(row-1, col);
             if(row < rows -1) openCell(row+1, col);
             if(col > 0) openCell(row, col-1);
@@ -109,24 +108,35 @@ void Board::draw(){
     }
 }
 void Board::update(){
-    //Check for win condition
-    if(InputHandler::getInstance()->getState(0)){
-        Position2D p = InputHandler::getInstance()->getMousePosition();
-        int row = this->calculateRow(p.getY());
-        int col = this->calculateCol(p.getX());
 
-        if(row>=0 && col>=0){
-            //check if is a bomb end the game
-            openCell(row,col);
+    if(Game::getInstance()->getCurrentGameState() == 3){
+        if(this->openedCells == (rows*cols - numBombs)){
+            Game::getInstance()->setCurrentGameState(1);
         }
-    }
-    if(InputHandler::getInstance()->getState(1)){
-        Position2D p = InputHandler::getInstance()->getMousePosition();
-        int row = this->calculateRow(p.getY());
-        int col = this->calculateCol(p.getX());
-        if(row>=0 && col>=0){
-            if(this->at(row, col)->isFlaged()) this->at(row, col)->setState(2);
-            else this->at(row,col)->setState(1);
+
+        if(InputHandler::getInstance()->getState(0)){
+            Position2D p = InputHandler::getInstance()->getMousePosition();
+            int row = this->calculateRow(p.getY());
+            int col = this->calculateCol(p.getX());
+
+            
+            if(row>=0 && col>=0){
+                if(this->at(row, col)->isBomb()){
+                    Game::getInstance()->setCurrentGameState(2);
+                    this->openAllBombs();
+                }else{
+                    openCell(row,col);
+                }
+            }
+        }
+        if(InputHandler::getInstance()->getState(1)){
+            Position2D p = InputHandler::getInstance()->getMousePosition();
+            int row = this->calculateRow(p.getY());
+            int col = this->calculateCol(p.getX());
+            if(row>=0 && col>=0){
+                if(this->at(row, col)->isFlaged()) this->at(row, col)->setState(2);
+                else if(this->at(row,col)->isClosed()) this->at(row, col)->setState(1);
+            }
         }
     }
 }
@@ -141,6 +151,14 @@ void Board::genereateBombs(){
         }while(this->at(row, col)->isBomb());
 
         this->at(row, col)->setToBomb();
+    }
+}
+
+void Board::openAllBombs(){
+    for(auto cell: this->cells){
+        if(cell->isBomb()){
+            cell->setState(3);
+        }
     }
 }
 

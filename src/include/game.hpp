@@ -5,9 +5,18 @@
 #include "input_handler.hpp"
 #include "drawer.hpp"
 #include "board.hpp"
+#include "text_renderer.hpp"
 
 class Board;
 class InputHandler;
+class TextRenderer;
+
+enum CurrentGameState{
+    WIN = 1,
+    LOSE = 2,
+    RUNNING = 3
+};
+
 /**
  * Singleton class that represents the game
  * @param isGameRunning - variable that indicates if the game is still running
@@ -19,6 +28,7 @@ class Game{
     SDL_Window* window;
     SDL_Renderer* renderer;
 
+    int currentGameState;
     Board* board;
     /**
      * Private default constructor
@@ -58,9 +68,15 @@ public:
     void update();
     void handleEvents();
     void clean();
+    void restart();
     void quit();
 
     bool isRunning() const;
+    int getCurrentGameState() const;
+
+    void setCurrentGameState(int flag);
+
+    
 
     const SDL_Renderer* getRenderer() const;
 
