@@ -7,6 +7,16 @@
 
 class Cell;
 
+
+/**
+ * Class that represents the minefield
+ * @param rows - the number of rows of the field
+ * @param cols - the number of columns of the field
+ * @param numBombs - the number of the bombs in the field
+ * @param openedCells - the number of the opened cells 
+ * @param cells - vector of the cells in the field
+ * 
+ */
 class Board: public GameObject{
 
     size_t rows;
@@ -62,22 +72,44 @@ public:
      * @param row
      * @param col
      * 
+     * @return cell at the given position
      * @throw invalid_argument index out of range
      */
     const Cell* at(size_t row, size_t col) const;
     Cell* at(size_t row, size_t col);
 
+    /**
+     * Method that opens a cell, an recursively opens all zero cells
+     * @param row
+     * @param col
+     */
     void openCell(size_t row, size_t col);
 
+    /**
+     * Method that calculates the  row based on the mouse cursor position
+     * @param cursorY
+     */
     int calculateRow(int cursorY)const;
+    
+    /**
+     * Method that calculates the col based on the moise cursor position
+     * @param cursorX
+     */
     int calculateCol(int cursorX)const;
 
     /**
-     * Implementation of the GameObject virtual methods
+     * Method that draws the field
      */
     void draw();
+    /**
+     * Method that waits for mouse click and the perform the opening or the flagging of a cell
+     * It is llistening for mouse event onlu if the current game is running
+     */
     void update();
 
+    /**
+     * Method that sets the state of all bomb cells to opened
+     * This method is called when bomb is clicked
+     */
     void openAllBombs();
-    Cell* getCellByCursorPos(const Position2D& pos);
 };

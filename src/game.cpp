@@ -72,7 +72,7 @@ void Game::handleEvents(){
 }
 void Game::clean(){
     std::cout<<"Cleaning the game"<< std::endl;
-    
+    delete this->board;
     SDL_DestroyWindow(this->window);
     SDL_DestroyRenderer(this->renderer);
     TTF_Quit();

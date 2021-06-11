@@ -11,6 +11,9 @@ class Board;
 class InputHandler;
 class TextRenderer;
 
+/**
+ * Enum that represents the current game state
+ */
 enum CurrentGameState{
     WIN = 1,
     LOSE = 2,
@@ -64,23 +67,55 @@ public:
      */
     void init(const char* title, int xpos, int ypos, int width, int height);
     
+    /**
+     * Method that is responsibel for what is rendered on the user's screen
+     */
     void render();
+    /**
+     * Method that is responsible for updating the game state
+     */
     void update();
+    /**
+     * Method that is responisible for catching the needed events
+     */
     void handleEvents();
+    /**
+     * Method for cleaning the game
+     */
     void clean();
+    /**
+     * Method that is creating a new game - deletes the old board, if any, and generates a new one
+     */
     void restart();
+
+    /**
+     * This method is used to stop the game loop
+     */
     void quit();
 
+    /**
+     * Method that returns the global game state
+     */
     bool isRunning() const;
+    /**
+     * Returns the status of the current game
+     */
     int getCurrentGameState() const;
 
+    /**
+     * Setter for the current game
+     */
     void setCurrentGameState(int flag);
 
     
-
+    /**
+     * Methods that returns the game renderer
+     */
     const SDL_Renderer* getRenderer() const;
-
     SDL_Renderer* getRenderer();
 
+    /**
+     * Method that returns the game window
+     */
     SDL_Window* getWindow();
 };

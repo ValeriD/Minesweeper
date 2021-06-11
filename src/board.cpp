@@ -69,9 +69,10 @@ size_t Board::getColsCount()const{
 
 const Cell* Board::at(size_t row, size_t col) const{
     if(row < 0 || row >= this->rows || col < 0 || col >= this->cols) throw std::invalid_argument("Index out of bounds");
-    return this->cells[row*col];
+    return this->cells[row*cols +col];
 }
 Cell* Board::at(size_t row, size_t col){
+    if(row < 0 || row >= this->rows || col < 0 || col >= this->cols) throw std::invalid_argument("Index out of bounds");
     return this->cells[row*cols + col];
 }
 
@@ -160,16 +161,4 @@ void Board::openAllBombs(){
             cell->setState(3);
         }
     }
-}
-
-Cell* Board::getCellByCursorPos(const Position2D& pos){
-    if(pos.getX()> this->getX()+this->getWidth() || pos.getX() < this->getX() 
-    || pos.getY() > this->getY()+this->getHeight() || pos.getY() < this->getY()){
-        return nullptr;
-    }
-
-    int col = (pos.getX() - this->getX())/(this->getWidth()/cols);
-    int row = (pos.getY() - this->getY())/(this->getHeight()/rows);
-
-    return at(row, col);
 }

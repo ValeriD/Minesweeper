@@ -4,10 +4,21 @@
 
 class Board;
 
+
+/**
+ * Enum that represents the cell states
+ */
 enum CellState{
     FLAGGED, OPENED, CLOSED
 };
 
+/**
+ * Cell class that represents single cell of the monefield
+ * @param bomb - true if the cell is bomb
+ * @param numSurroundingBombs 
+ * @param state - the state of the cell
+ * @param board - the parent
+ */
 class Cell: public GameObject{
 
     bool bomb;
@@ -27,6 +38,9 @@ public:
      */
     Cell(int x, int y, int width, int height, std::string id, Board* board);
 
+    /**
+     * Destrucor
+     */
     virtual ~Cell();
     /**
      * Copy constructor
@@ -57,14 +71,19 @@ public:
 
     /**
      * Method that calculates the number of surrounding bombs
+     * @param row - the row on which the cell is located
+     * @param col- the column on which the cell is located
      */
     void calculateNumSurroundingBombs(size_t row, size_t col);
 
     /**
-     * Implementation of the GameObject virtual methods
+     * Method that draws copy of the cell on the renderer
      */
     void draw();
     void update();
 
+    /**
+     * Method that updates the state of the cell
+     */
     void update(bool state);
 };

@@ -14,9 +14,11 @@ public:
     Drawer(const Drawer& other) = delete;
     Drawer& operator=(const Drawer& other) = delete;
     
-    //TODO add width parameter because of the different levels and textureId as param too
     /**
-     * Method that draws the coresponding value/state of cell
+     * Methods that draw the coresponding value/state of cell
+     * @param position
+     * @param width
+     * @param height
      */
     static void drawZero(const Position2D& position, int width, int height);
     static void drawOne(const Position2D& position, int width, int height);
